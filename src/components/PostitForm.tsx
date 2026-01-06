@@ -28,7 +28,8 @@ export default function PostitForm({ draft, onChange, onSubmit, onClear }: Props
 
   return (
     <div>
-      <h3 className="form-title">Adicionar / Editar post-it</h3>
+      <h3 className="form-title">{draft.editingId ? "Editar post-it" : "Adicionar post-it"}</h3>
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
