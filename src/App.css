@@ -10,6 +10,12 @@ body {
   color: #333;
 }
 
+button.disabled,
+button:disabled,
+button[disabled] {
+  pointer-events: none;
+}
+
 .app {
   max-width: 1100px;
   margin: 20px auto;

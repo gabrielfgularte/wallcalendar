@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import type { Postit } from "../types";
 import Button from "./Button";
 
 type Draft = {
@@ -14,10 +13,11 @@ type Props = {
   onChange: (draft: Draft) => void;
   onSubmit: () => void;
   onClear: () => void;
-  editingPostit?: Postit | null;
+  isEditing: boolean;
+  isDirty: boolean;
 };
 
-export default function PostitForm({ draft, onChange, onSubmit, onClear }: Props) {
+export default function PostitForm({ draft, onChange, onSubmit, onClear, isEditing, isDirty }: Props) {
   const titleRef = useRef<HTMLInputElement | null>(null);
 
   // Focus title when editing/creating changes
@@ -63,8 +63,13 @@ export default function PostitForm({ draft, onChange, onSubmit, onClear }: Props
           <Button type="submit" variant="primary">
             Salvar
           </Button>
-          <Button type="button" variant="secondary" onClick={onClear}>
-            Limpar
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={onClear}
+            disabled={!isEditing && !isDirty}
+          >
+            {isEditing ? "Cancelar" : "Limpar"}
           </Button>
         </div>
       </form>

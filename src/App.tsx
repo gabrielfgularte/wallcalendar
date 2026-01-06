@@ -37,6 +37,14 @@ export default function App() {
     return list.slice().sort(sortByTime);
   }, [data, selectedDateKey]);
 
+  const isEditing = Boolean(draft.editingId);
+
+  const isDirty =
+    !isEditing &&
+    (draft.title.trim() !== "" ||
+      draft.time.trim() !== "" ||
+      draft.desc.trim() !== "");
+
   function clearForm() {
     setDraft({ editingId: "", title: "", time: "", desc: "" });
   }
@@ -161,6 +169,8 @@ export default function App() {
         onClear={clearForm}
         onEdit={startEdit}
         onDelete={deletePostit}
+        isEditing={isEditing}
+        isDirty={isDirty}
       />
     </div>
   );

@@ -19,9 +19,11 @@ type Props = {
   onClear: () => void;
   onEdit: (p: Postit) => void;
   onDelete: (p: Postit) => void;
+  isEditing: boolean;
+  isDirty: boolean;
 };
 
-export default function Sidebar({ selectedDateKey, items, draft, onDraftChange, onSave, onClear, onEdit, onDelete }: Props) {
+export default function Sidebar({ selectedDateKey, items, draft, onDraftChange, onSave, onClear, onEdit, onDelete, isEditing, isDirty }: Props) {
   return (
     <aside className="sidebar">
       <div>
@@ -31,7 +33,14 @@ export default function Sidebar({ selectedDateKey, items, draft, onDraftChange, 
 
       <PostitList items={items} onEdit={onEdit} onDelete={onDelete} />
 
-      <PostitForm draft={draft} onChange={onDraftChange} onSubmit={onSave} onClear={onClear} />
+      <PostitForm
+        draft={draft}
+        onChange={onDraftChange}
+        onSubmit={onSave}
+        onClear={onClear}
+        isEditing={isEditing}
+        isDirty={isDirty}
+      />
     </aside>
   );
 }
