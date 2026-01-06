@@ -1,3 +1,68 @@
+:root {
+  /* Light (default) */
+  --bg: #f5f5f5;
+  --panel: #ffffff;
+  --panel-2: #fafafa;
+  --text: #333;
+  --muted: #666;
+
+  --border: #e3e3e3;
+  --border-soft: #f0f0f0;
+
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+
+  --btn-bg: #fafafa;
+  --btn-border: #ddd;
+  --btn-hover: #f0f0f0;
+
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+
+  --day-hover: #f9f9ff;
+  --today-bg: #eef3ff;
+
+  --chip-bg: #fff7c2;
+  --chip-border: #f0e2a2;
+
+  --postit-bg: #fffbe6;
+  --postit-border: #f3e19b;
+
+  color-scheme: light;
+}
+
+/* Dark */
+:root[data-theme="dark"] {
+  --bg: #0b0f19;
+  --panel: #111827;
+  --panel-2: #0f172a;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+
+  --border: #243047;
+  --border-soft: #1f2a3d;
+
+  --shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
+
+  --btn-bg: #0f172a;
+  --btn-border: #243047;
+  --btn-hover: #111c33;
+  --btn-bg-disabled: rgba(255, 255, 255, .2);
+
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+
+  --day-hover: #0f1a2e;
+  --today-bg: #0f1f3d;
+
+  --chip-bg: #2a2a14;
+  --chip-border: #3a3a1a;
+
+  --postit-bg: #1a1a10;
+  --postit-border: #3a361c;
+
+  color-scheme: dark;
+}
+
 * {
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -6,23 +71,26 @@
 body {
   margin: 0;
   padding: 0;
-  background: #f5f5f5;
-  color: #333;
+  background: var(--bg);
+  color: var(--text);
 }
 
 button.disabled,
 button:disabled,
 button[disabled] {
+  background: var(--btn-bg-disabled);
   pointer-events: none;
+  opacity: .7;
+  border: var(--btn-bg-disabled);
 }
 
 .app {
   max-width: 1100px;
   margin: 20px auto;
   padding: 16px;
-  background: #ffffff;
+  background: var(--panel);
+  box-shadow: var(--shadow);
   border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
   display: grid;
   grid-template-columns: 2fr 1.2fr;
   gap: 20px;
@@ -57,8 +125,8 @@ button[disabled] {
 }
 
 .btn {
-  border: 1px solid #ddd;
-  background: #fafafa;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
   border-radius: 6px;
   padding: 6px 10px;
   cursor: pointer;
@@ -67,7 +135,7 @@ button[disabled] {
 }
 
 .btn:hover {
-  background: #f0f0f0;
+  background: var(--btn-hover);
 }
 
 .btn:active {
@@ -75,13 +143,13 @@ button[disabled] {
 }
 
 .btn-primary {
-  background: #4f46e5;
+  background: var(--primary);
+  border-color: var(--primary);
   color: #fff;
-  border-color: #4f46e5;
 }
 
 .btn-primary:hover {
-  background: #4338ca;
+  background: var(--primary-hover);
 }
 
 .btn-secondary {
@@ -90,7 +158,7 @@ button[disabled] {
 }
 
 .calendar {
-  border: 1px solid #e3e3e3;
+  border: 1px solid var(--border);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -102,13 +170,13 @@ button[disabled] {
 }
 
 .weekdays div {
-  background: #fafafa;
+  background: var(--panel-2);
   padding: 8px;
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-  border-bottom: 1px solid #e3e3e3;
-  border-right: 1px solid #e3e3e3;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
 }
 
 .weekdays div:last-child {
@@ -117,22 +185,22 @@ button[disabled] {
 
 .day {
   min-height: 90px;
-  border-right: 1px solid #f0f0f0;
-  border-bottom: 1px solid #f0f0f0;
+  border-right: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
   padding: 4px;
   position: relative;
   cursor: pointer;
-  background: #fff;
+  background: var(--panel);
   transition: background 0.15s;
 }
 
 .day.other-month {
-  background: #fafafa;
+  background: var(--panel-2);
   color: #aaa;
 }
 
 .day:hover {
-  background: #f9f9ff;
+  background: var(--day-hover);
 }
 
 .day-number {
@@ -143,12 +211,12 @@ button[disabled] {
 }
 
 .day.selected {
-  outline: 2px solid #4f46e5;
+  outline: 2px solid var(--primary);
   z-index: 1;
 }
 
 .day.today {
-  background: #eef3ff;
+  background: var(--today-bg);
 }
 
 .day-postits {
@@ -161,18 +229,18 @@ button[disabled] {
   font-size: 10px;
   padding: 2px 4px;
   border-radius: 4px;
-  background: #fff7c2;
+  background: var(--chip-bg);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  border: 1px solid #f0e2a2;
+  border: 1px solid var(--chip-border);
 }
 
 .sidebar {
   padding: 8px;
   border-radius: 10px;
-  border: 1px solid #e3e3e3;
-  background: #fafafa;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -197,10 +265,10 @@ button[disabled] {
 }
 
 .postit {
-  background: #fffbe6;
+  background: var(--postit-bg);
   border-radius: 8px;
   padding: 8px;
-  border: 1px solid #f3e19b;
+  border: 1px solid var(--postit-border);
   position: relative;
 }
 
@@ -272,4 +340,34 @@ textarea {
   font-size: 12px;
   color: #777;
   font-style: italic;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--text);
+
+
+  padding: 6px 10px;
+
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s, transform 0.05s;
+}
+
+.theme-toggle:hover {
+  background: var(--btn-hover);
+}
+
+.theme-toggle:active {
+  transform: translateY(1px);
+}
+
+.theme-toggle-label {
+  color: var(--muted);
+  font-size: 12px;
 }

@@ -1,13 +1,15 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CalendarGrid from "./components/CalendarGrid";
 import CalendarHeader from "./components/CalendarHeader";
 import Sidebar from "./components/Sidebar";
+import ThemeSelect from "./components/ThemeSelect";
 import { useLocalStorageState } from "./hooks/useLocalStorageState";
 import type { Postit, StickyCalendarData } from "./types";
 import { formatDateKey, monthNames, sortByTime } from "./utils/date";
 import { newId } from "./utils/id";
 
 const STORAGE_KEY = "stickyCalendarData";
+const THEME_STORAGE_KEY = "stickyCalendarTheme";
 
 type Draft = {
   editingId: string;
@@ -16,10 +18,14 @@ type Draft = {
   desc: string;
 };
 
+type ThemeMode = "system" | "light" | "dark";
+
 export default function App() {
   const today = useMemo(() => new Date(), []);
 
   const [data, setData] = useLocalStorageState<StickyCalendarData>(STORAGE_KEY, {});
+  const [themeMode, setThemeMode] = useLocalStorageState<ThemeMode>(THEME_STORAGE_KEY, "system");
+
 
   const [currentYear, setCurrentYear] = useState(() => today.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(() => today.getMonth());
@@ -139,9 +145,24 @@ export default function App() {
     clearForm();
   }
 
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (themeMode === "system") {
+      root.removeAttribute("data-theme");
+      return;
+    }
+
+    root.setAttribute("data-theme", themeMode);
+  }, [themeMode]);
+
   return (
     <div className="app">
       <div>
+        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
+          <ThemeSelect value={themeMode} onChange={setThemeMode} />
+        </div>
+
         <CalendarHeader
           monthLabel={monthNames[currentMonth]}
           year={currentYear}
