@@ -27,7 +27,6 @@ type TodoDraft = {
 	title: string;
 	dateKey: string;
 	time: string;
-	desc: string;
 };
 
 export default function App() {
@@ -191,11 +190,10 @@ export default function App() {
 		title: "",
 		dateKey: "",
 		time: "",
-		desc: "",
 	});
 
 	function clearTodoForm() {
-		setTodoDraft({ editingId: "", title: "", dateKey: "", time: "", desc: "" });
+		setTodoDraft({ editingId: "", title: "", dateKey: "", time: "" });
 	}
 
 	function saveTodo() {
@@ -217,7 +215,6 @@ export default function App() {
 					title,
 					dateKey: todoDraft.dateKey.trim() || undefined,
 					time: todoDraft.time.trim() || undefined,
-					description: todoDraft.desc.trim() || undefined,
 				};
 				return next;
 			}
@@ -228,7 +225,6 @@ export default function App() {
 				title,
 				dateKey: todoDraft.dateKey.trim() || undefined,
 				time: todoDraft.time.trim() || undefined,
-				description: todoDraft.desc.trim() || undefined,
 			};
 			return next;
 		});
@@ -245,7 +241,6 @@ export default function App() {
 			title: t.title,
 			dateKey: t.dateKey || "",
 			time: t.time || "",
-			desc: t.description || "",
 		});
 
 		setArea("todos");
@@ -284,7 +279,7 @@ export default function App() {
 						type="button"
 						onClick={() => setArea("calendar")}
 						className={[
-							"rounded-full px-4 py-2 text-sm font-semibold transition",
+							"rounded-md px-4 py-2 text-sm font-semibold transition",
 							area === "calendar"
 								? "bg-indigo-600 text-white"
 								: "text-zinc-600 hover:bg-white hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white",
@@ -297,7 +292,7 @@ export default function App() {
 						type="button"
 						onClick={() => setArea("todos")}
 						className={[
-							"rounded-full px-4 py-2 text-sm font-semibold transition",
+							"rounded-md px-4 py-2 text-sm font-semibold transition",
 							area === "todos"
 								? "bg-indigo-600 text-white"
 								: "text-zinc-600 hover:bg-white hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white",
@@ -311,9 +306,9 @@ export default function App() {
 			</div>
 
 			{/* Content card */}
-			<div className="mx-auto mt-4 max-w-[1100px] rounded-2xl bg-white p-4 shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-900 dark:ring-zinc-800">
+			<div className="mx-auto mt-4 flex max-w-[1100px] flex-col rounded-2xl bg-white p-4 shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-900 dark:ring-zinc-800 max-h-[calc(100vh-140px)]">
 				{area === "calendar" ? (
-					<div className="flex gap-6">
+					<div className="flex min-h-0 flex-1 gap-6">
 						{/* Left calendar */}
 						<div className="flex-1 min-w-0">
 							<div className="mb-3 flex items-center justify-between gap-3">

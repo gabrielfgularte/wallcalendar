@@ -122,7 +122,7 @@ export default function CalendarGrid({
 											return (
 												<div
 													key={`${cell.dateKey}-ev-postit-${idx}`}
-													className="truncate rounded border border-amber-200 bg-amber-100 px-1.5 py-0.5 text-[10px] text-amber-900 dark:border-amber-900/40 dark:bg-amber-950/40 dark:text-amber-100"
+													className="truncate rounded border border-amber-200 bg-amber-100 px-1.5 py-0.1 text-[10px] text-amber-900 dark:border-amber-900/40 dark:bg-amber-950/40 dark:text-amber-100"
 													title={ev.label}
 												>
 													{ev.label}
@@ -134,7 +134,7 @@ export default function CalendarGrid({
 											<div
 												key={ev.id}
 												className={[
-													"truncate rounded border px-1.5 py-0.5 text-[10px]",
+													"truncate rounded border px-1.5 py-0.1 text-[10px]",
 													ev.done
 														? "border-emerald-200 bg-emerald-100 text-emerald-900 dark:border-emerald-900/40 dark:bg-emerald-950/40 dark:text-emerald-100"
 														: "border-indigo-200 bg-indigo-100 text-indigo-900 dark:border-indigo-900/40 dark:bg-indigo-950/40 dark:text-indigo-100",
@@ -147,7 +147,7 @@ export default function CalendarGrid({
 									})}
 
 									{moreCount > 0 && (
-										<div className="truncate rounded border border-zinc-200 bg-zinc-100 px-1.5 py-0.5 text-[10px] text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
+										<div className="truncate rounded border border-zinc-200 bg-zinc-100 px-1.5 py-0.1 text-[10px] text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
 											+{moreCount}
 										</div>
 									)}

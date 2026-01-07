@@ -37,7 +37,7 @@ export default function SidebarPostits({
 	isDirty,
 }: Props) {
 	return (
-		<aside className="w-full max-w-[420px] rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950/50">
+		<aside className="w-full max-w-[420px] rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950/50 flex flex-col min-h-0">
 			<div className="mb-4">
 				<div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
 					Post-its do dia
@@ -47,7 +47,7 @@ export default function SidebarPostits({
 				</div>
 			</div>
 
-			<div className="space-y-3">
+			<div className="min-h-0 flex-1 overflow-y-auto pr-1 space-y-3 scrollbar-pretty">
 				{items.length === 0 ? (
 					<div className="text-sm italic text-zinc-500 dark:text-zinc-400">
 						Nenhum post-it para este dia ainda.

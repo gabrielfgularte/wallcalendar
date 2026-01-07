@@ -7,7 +7,6 @@ type Draft = {
 	title: string;
 	dateKey: string;
 	time: string;
-	desc: string;
 };
 
 type Props = {
@@ -55,13 +54,12 @@ export default function TodosPage({
 		!isEditing &&
 		(draft.title.trim() !== "" ||
 			draft.dateKey.trim() !== "" ||
-			draft.time.trim() !== "" ||
-			draft.desc.trim() !== "");
+			draft.time.trim() !== "");
 
 	return (
-		<div className="flex gap-6">
+		<div className="flex min-h-0 flex-1 gap-6">
 			{/* Left list (clean) */}
-			<div className="flex-1 min-w-0">
+			<div className="flex-1 min-w-0 min-h-0 flex flex-col">
 				<div className="mb-4">
 					<div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
 						To-dos
@@ -71,7 +69,7 @@ export default function TodosPage({
 					</div>
 				</div>
 
-				<div className="space-y-3">
+				<div className="min-h-0 flex-1 overflow-y-auto pr-1 divide-zinc-200 dark:divide-zinc-800 scrollbar-pretty">
 					<div className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
 						Pendentes
 					</div>
@@ -85,41 +83,45 @@ export default function TodosPage({
 							{pending.map((t) => (
 								<div
 									key={t.id}
-									className="rounded-xl border border-indigo-300 bg-indigo-100 p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+									className="flex items-start justify-between gap-3 py-2 border-b border-zinc-200"
 								>
-									<div className="font-semibold text-zinc-900 dark:text-zinc-100">
-										{t.title}
-									</div>
-									<div className="mt-1 text-sm text-zinc-400 dark:text-zinc-400">
-										<i>{todoLabel(t)}</i>
-									</div>
-
-									{t.description && (
-										<div className="mt-2 whitespace-pre-wrap text-sm text-zinc-700 dark:text-zinc-200">
-											{t.description}
+									{/* Left: texto */}
+									<div className="min-w-0">
+										<div className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-100">
+											{t.title}
 										</div>
-									)}
 
-									<div className="mt-3 flex flex-wrap justify-end gap-2">
+										<div className="text-xs text-zinc-500 dark:text-zinc-400">
+											{todoLabel(t)}
+										</div>
+									</div>
+
+									{/* Right: ações por ícone */}
+									<div className="flex shrink-0 items-center gap-2">
+										{/* Done */}
 										<button
-											className="rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700"
 											type="button"
+											title="Marcar como feito"
 											onClick={() => onToggleDone(t.id)}
+											className="rounded p-1 text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 dark:hover:bg-emerald-900/30"
 										>
-											Marcar como feito
+											✓
 										</button>
 
+										{/* Edit */}
 										<button
-											className="rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
 											type="button"
+											title="Editar"
 											onClick={() => onEdit(t.id)}
+											className="rounded p-1 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-200"
 										>
-											Editar
+											✎
 										</button>
 
+										{/* Delete */}
 										<button
-											className="rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
 											type="button"
+											title="Excluir"
 											onClick={() => {
 												if (
 													!confirm("Tem certeza que deseja excluir este to-do?")
@@ -127,8 +129,9 @@ export default function TodosPage({
 													return;
 												onDelete(t.id);
 											}}
+											className="rounded p-1 text-zinc-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/30"
 										>
-											Excluir
+											✕
 										</button>
 									</div>
 								</div>
@@ -217,13 +220,6 @@ export default function TodosPage({
 							title="Opcional"
 						/>
 					</div>
-
-					<textarea
-						className="min-h-[90px] w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-indigo-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
-						placeholder="Descrição"
-						value={draft.desc}
-						onChange={(e) => onDraftChange({ ...draft, desc: e.target.value })}
-					/>
 
 					<div className="flex items-center justify-between gap-2 pt-1">
 						<button
